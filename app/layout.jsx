@@ -11,9 +11,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <Suspense>
-      <html lang="en">
-        <body>
+    <html lang="en">
+      <body>
+        <Suspense>
           <Provider>
             <div className="main">
               <div className="gradient"></div>
@@ -24,8 +24,8 @@ export default function RootLayout({ children }) {
               {children}
             </main>
           </Provider>
-        </body>
-      </html>
-    </Suspense>
+        </Suspense>
+      </body>
+    </html>
   );
 }
