@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 
 const MyProfile = () => {
+  const Router = useRouter();
   const { data: session } = useSession();
 
   const [posts, setPosts] = useState([]);
@@ -24,9 +25,25 @@ const MyProfile = () => {
     }
   }, []);
 
-  const handleEdit = () => {};
+  const handleEdit = (postId) => {
+    Router.push(`/update-prompt?id=${postId}`);
+  };
 
-  const handleDelete = async () => {};
+  const handleDelete = async (postId) => {
+    const hasConfirmed = confirm("Are you sure you want to delete this post?");
+
+    if (hasConfirmed) {
+      const response = await fetch(`/api/prompt/${postId.toString()}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
+      }
+    }
+  };
 
   return (
     <Profile
